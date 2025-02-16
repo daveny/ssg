@@ -20,10 +20,18 @@ class TestLeafNode(unittest.TestCase):
         self.assertNotEqual(node, node2)
 
     def test_repr(self):
-        node = LeafNode("p", "this is a text", "https://www.boot.dev")
+        node = LeafNode("p", "this is a text", {"class": "test"})
         self.assertEqual(
-            "LeafNode(p, this is a text, https://www.boot.dev)", repr(node)
+            "LeafNode(p, this is a text, {'class': 'test'})", repr(node)
         )
+    
+    def test_to_html_no_children(self):
+        node = LeafNode("p", "Hello, world!")
+        self.assertEqual(node.to_html(), "<p>Hello, world!</p>")
+
+    def test_to_html_no_tag(self):
+        node = LeafNode(None, "Hello, world!")
+        self.assertEqual(node.to_html(), "Hello, world!")
 
 
 if __name__ == "__main__":

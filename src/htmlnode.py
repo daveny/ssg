@@ -20,7 +20,7 @@ class HTMLNode:
         return (self.tag, self.value, self.children, self.props) == (other.tag, other.value, other.children, self.props)
 
 class LeafNode(HTMLNode):
-    def __init__(self, tag, value, props):
+    def __init__(self, tag, value, props=None):
         super().__init__(tag=tag, value=value, children=None, props=props)
     
     def to_html(self):
