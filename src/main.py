@@ -2,27 +2,22 @@ from helpers import extract_markdown_images, split_nodes_delimiter
 from textnode import TextNode, TextType, text_node_to_html_node
 from htmlnode import HTMLNode, LeafNode
 
+import os
+import shutil
+
+from copystatic import copy_files_recursive
+
+
+dir_path_static = "./static"
+dir_path_public = "./public"
+
 def main():
-    # tn = TextNode("This is a text node", TextType.BOLD, "https://www.boot.dev")
-    # print(repr(tn))
 
-    # hn = HTMLNode("a", "http://index.hu", [HTMLNode("h1", "header value", None, None)], {"href": "https://www.google.com"})
-    # print(repr(hn))
+    print("Deleting public directory...")
+    if os.path.exists(dir_path_public):
+        shutil.rmtree(dir_path_public)
 
-    # ln = LeafNode("p", "this is a text", {'class': 'test'})
-    # print(repr(ln))
-
-    # text_node = TextNode("Hello, world!", TextType.ITALIC)
-    # html_node = text_node_to_html_node(text_node)
-    # print(html_node.to_html())
-
-    # text = "This is text with a `code block`"
-    # blocks = split_nodes_delimiter(text, '`', TextType.CODE)
-    # print(blocks)
-
-    text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
-    print(extract_markdown_images(text))
-
-    return 0
+    print("Copying static files to public directory...")
+    copy_files_recursive(dir_path_static, dir_path_public)
 
 main()
